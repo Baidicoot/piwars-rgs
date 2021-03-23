@@ -1,5 +1,6 @@
 from actions import *
-import camera
+import kernel.camera
+import kernel.ultrasonic
 
 def kernel(mainloop,used_modules):
     m0 = Motor(17,18)
@@ -7,14 +8,18 @@ def kernel(mainloop,used_modules):
     m2 = Motor(20,21)
     m3 = Motor(25,26)
 
-    get_raw = None
+    get_raw, get_dist = None, None
     if "camera" in used_modules:
-        get_raw = camera.init()
+        get_raw = kernel.camera.init()
+    if "ultrasonic" in used_modules:
+        get_dist = kernel.ultrasonic.init()
     
     while True:
         inp = {}
         if "camera" in used_modules:
             inp["raw_img"] = get_raw()
+        if "ultrasonic" in used_modules:
+            inp["ultra_dist"] = get_dist()
         
         actions = mainloop(inp)
         

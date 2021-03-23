@@ -1,3 +1,5 @@
+from imutils.video import VideoStream
+
 WIDTH = 800
 HEIGHT = 800
 FOV_X = None
